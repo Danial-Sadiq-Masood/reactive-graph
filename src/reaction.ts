@@ -102,7 +102,7 @@ function recalculateDirtyNode<T>(node : Node<T>){
         node.dirty = false;
         return
     }
-    for(const dependee of node.dependees){
+    for(const dependee of node.dependees.values()){
         if(dependee.dirty){
             recalculateDirtyNode(dependee)
         }

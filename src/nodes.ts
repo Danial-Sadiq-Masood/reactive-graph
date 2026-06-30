@@ -15,7 +15,7 @@ export interface InputNode<T> extends BaseNode<T>{
 
 export interface CalculatedNode<T> extends BaseNode<T>{
     kind : "calculated",
-    dependees : Set<Node<T>>
+    dependees : Map<string, Node<T>>
     calculate() : T
 }
 
@@ -38,20 +38,22 @@ export function createInputNode<T>(id: string, initialValue: T): InputNode<T> {
 
 export function createCalculatedNode<T>(
   id: string,
-  dependees: Set<Node<T>>,
-  calculate: () => T,
+  dependees: Map<string, Node<T>>,
+  calculate: (dependees : Map<string, Node<T>>) => T,
 ): CalculatedNode<T> {
   const node: CalculatedNode<T> = {
     id,
     kind: "calculated",
-    value: calculate(),
+    value: calculate(dependees),
     dirty: false,
     dependents: new Set(),
     dependees: dependees,
-    calculate,
+    calculate : ()=>{
+      return calculate(node.dependees)
+    }
   };
 
-  for (const dependee of node.dependees) {
+  for (const dependee of node.dependees.values()) {
     dependee.dependents.add(node);
   }
 
