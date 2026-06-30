@@ -1,0 +1,23 @@
+{
+  "name": "reactive-graph",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/reactive-graph.umd.js",
+  "module": "./dist/reactive-graph.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1",
+    "vite-plugin-dts": "^5.0.3",
+    "vitest": "^4.1.9"
+  }
+}
